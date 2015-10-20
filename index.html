@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0" />
+    <title>Map Scaling Operation</title>
+
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <style type="text/css">
+        body, html {
+            /*overflow: hidden;*/
+            font-family:"微软雅黑";
+        }
+        #container_left, #container_right {
+            height: 480px;
+        }
+        #allmap1, #allmap2{
+            margin:5px 0px 5px;
+            height:95%;
+        }
+        #btn_add_points {
+            margin-top: 4px;
+        }
+    </style>
+
+    <script src="http://api.map.baidu.com/api?v=1.5&ak=nCAUqza38WY92GhoIPnSUMYk" type="text/javascript"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/AreaRestriction/1.2/src/AreaRestriction_min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-12"><h2>Baidu Map Scaling Operation Test</h2></div>
+    <div class="col-md-6" id="container_left"><div id="allmap1"></div></div>
+    <div class="col-md-6" id="container_right"><div id="allmap2"></div></div>
+    <div class="col-md-6" id="btn_add_points">
+        <input class="btn btn-default" type="button" onclick="add_overlay();" value="添加覆盖物" />
+        <input class="btn btn-default" type="button" onclick="remove_overlay();" value="删除覆盖物" />
+    </div>
+</div>
+
+<script>
+    var map1 = new BMap.Map("allmap1");
+    var point1 = new BMap.Point(116.404, 39.915);
+    map1.centerAndZoom(point1,15);
+    map1.enableScrollWheelZoom();
+
+    var map2 = new BMap.Map("allmap2");
+    var point2 = new BMap.Point(116.404, 39.915);
+    map2.centerAndZoom(point2,15);
+    map2.enableScrollWheelZoom();
+
+    var bound = new BMap.Bounds(new BMap.Point(116.027143, 39.772348),new BMap.Point(116.832025, 40.126349));
+    var center, zoom;
+
+    map1.addEventListener("dragend", function(){
+//        var center = map1.getBounds();
+//        bound = new BMap.Bounds(center.getSouthWest(), center.getNorthEast());
+
+        center = this.getCenter();
+        zoom = this.getZoom();
+
+//        console.log(zoom);
+
+        try {
+            if (center && zoom)
+                map2.centerAndZoom(center, zoom);
+        } catch (e) {
+            alert(e);
+        }
+    });
+
+    map1.addEventListener("zoomend", function(){
+        center = this.getCenter();
+        zoom = this.getZoom();
+
+        try {
+            if (center && zoom)
+                map2.centerAndZoom(center, zoom);
+        } catch (e) {
+            alert(e);
+        }
+    });
+
+    function add_overlay(){
+        var marker = new Array(100);
+
+        map1.clearOverlays();
+        map2.clearOverlays();
+
+        var bs = map1.getBounds();
+        var bssw = bs.getSouthWest();
+        var bsne = bs.getNorthEast();
+
+//        console.log(bs);
+
+        var rangeLng = bsne.lng - bssw.lng;
+        var rangeLat = bsne.lat - bssw.lat;
+
+        for (var i=0; i<100; i++) {
+            marker[i] = new BMap.Marker(new BMap.Point(bssw.lng+Math.random()*rangeLng, bssw.lat+Math.random()*rangeLat));
+
+//            if (i%2==0) map1.addOverlay(marker[i]);
+//            else map2.addOverlay(marker[i]);
+            map1.addOverlay(marker[i])
+        }
+    }
+
+    function remove_overlay(){
+        map1.clearOverlays();
+        map2.clearOverlays();
+    }
+</script>
+</body>
+</html>
