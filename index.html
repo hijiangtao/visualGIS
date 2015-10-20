@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0" />
     <title>Map Scaling Operation</title>
 
@@ -28,8 +28,7 @@
         }
     </style>
 
-    <script src="http://api.map.baidu.com/api?v=1.5&ak=nCAUqza38WY92GhoIPnSUMYk" type="text/javascript"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/library/AreaRestriction/1.2/src/AreaRestriction_min.js"></script>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=nCAUqza38WY92GhoIPnSUMYk" type="text/javascript"></script>
 </head>
 <body>
 <div class="container">
@@ -48,15 +47,23 @@
 </footer>
 
 <script>
+    var mapStyle = {
+        features: ["road", "building","water","land"],//隐藏地图上的poi
+        style : "dark"  //设置地图风格为高端黑
+    }
+
     var map1 = new BMap.Map("allmap1");
     var point1 = new BMap.Point(116.404, 39.915);
     map1.centerAndZoom(point1,15);
     map1.enableScrollWheelZoom();
 
+
     var map2 = new BMap.Map("allmap2");
     var point2 = new BMap.Point(116.404, 39.915);
     map2.centerAndZoom(point2,15);
     map2.enableScrollWheelZoom();
+    map2.setMapStyle(mapStyle);
+
 
     var center, zoom;
 
