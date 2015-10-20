@@ -22,6 +22,10 @@
         #btn_add_points {
             margin-top: 4px;
         }
+        #ftr {
+            text-align: center;
+            width: 100%;
+        }
     </style>
 
     <script src="http://api.map.baidu.com/api?v=1.5&ak=nCAUqza38WY92GhoIPnSUMYk" type="text/javascript"></script>
@@ -33,10 +37,15 @@
     <div class="col-md-6" id="container_left"><div id="allmap1"></div></div>
     <div class="col-md-6" id="container_right"><div id="allmap2"></div></div>
     <div class="col-md-6" id="btn_add_points">
-        <input class="btn btn-default" type="button" onclick="add_overlay();" value="添加覆盖物" />
-        <input class="btn btn-default" type="button" onclick="remove_overlay();" value="删除覆盖物" />
+        <input class="btn btn-default" type="button" onclick="add_overlay();" value="添加标注" />
+        <input class="btn btn-default" type="button" onclick="remove_overlay();" value="删除标注" />
     </div>
 </div>
+<footer>
+    <div id="ftr">
+        <small>Copyright <a href="http://hijiangtao.github.io/">@hijiangtao</a></small>
+    </div>
+</footer>
 
 <script>
     var map1 = new BMap.Map("allmap1");
