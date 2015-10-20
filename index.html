@@ -58,21 +58,27 @@
     map2.centerAndZoom(point2,15);
     map2.enableScrollWheelZoom();
 
-    var bound = new BMap.Bounds(new BMap.Point(116.027143, 39.772348),new BMap.Point(116.832025, 40.126349));
     var center, zoom;
 
     map1.addEventListener("dragend", function(){
-//        var center = map1.getBounds();
-//        bound = new BMap.Bounds(center.getSouthWest(), center.getNorthEast());
-
         center = this.getCenter();
         zoom = this.getZoom();
-
-//        console.log(zoom);
 
         try {
             if (center && zoom)
                 map2.centerAndZoom(center, zoom);
+        } catch (e) {
+            alert(e);
+        }
+    });
+
+    map2.addEventListener("dragend", function(){
+        center = this.getCenter();
+        zoom = this.getZoom();
+
+        try {
+            if (center && zoom)
+                map1.centerAndZoom(center, zoom);
         } catch (e) {
             alert(e);
         }
@@ -85,6 +91,18 @@
         try {
             if (center && zoom)
                 map2.centerAndZoom(center, zoom);
+        } catch (e) {
+            alert(e);
+        }
+    });
+
+    map2.addEventListener("zoomend", function(){
+        center = this.getCenter();
+        zoom = this.getZoom();
+
+        try {
+            if (center && zoom)
+                map1.centerAndZoom(center, zoom);
         } catch (e) {
             alert(e);
         }
