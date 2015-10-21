@@ -132,8 +132,10 @@
         var rangeLat = bsne.lat - bssw.lat;
 
         for (var i=0; i<100; i++) {
-            marker[i] = new BMap.Marker(new BMap.Point(bssw.lng+Math.random()*rangeLng, bssw.lat+Math.random()*rangeLat));
-            marker_right[i] = new BMap.Marker(new BMap.Point(bssw.lng+Math.random()*rangeLng, bssw.lat+Math.random()*rangeLat));
+            randLng = bssw.lng+Math.random()*rangeLng;
+            randLat = bssw.lat+Math.random()*rangeLat;
+            marker[i] = new BMap.Marker(new BMap.Point(randLng, randLat));
+            marker_right[i] = new BMap.Marker(new BMap.Point(randLng, randLat));
 
             map1.addOverlay(marker[i]);
             map2.addOverlay(marker_right[i]);
