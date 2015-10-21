@@ -67,7 +67,7 @@
 
     var center, zoom;
 
-    map1.addEventListener("dragend", function(){
+    map1.addEventListener("dragging", function(){
         center = this.getCenter();
         zoom = this.getZoom();
 
@@ -79,7 +79,7 @@
         }
     });
 
-    map2.addEventListener("dragend", function(){
+    map2.addEventListener("dragging", function(){
         center = this.getCenter();
         zoom = this.getZoom();
 
@@ -117,6 +117,7 @@
 
     function add_overlay(){
         var marker = new Array(100);
+        var marker_right = new Array(100);
 
         map1.clearOverlays();
         map2.clearOverlays();
@@ -132,10 +133,10 @@
 
         for (var i=0; i<100; i++) {
             marker[i] = new BMap.Marker(new BMap.Point(bssw.lng+Math.random()*rangeLng, bssw.lat+Math.random()*rangeLat));
+            marker_right[i] = new BMap.Marker(new BMap.Point(bssw.lng+Math.random()*rangeLng, bssw.lat+Math.random()*rangeLat));
 
-//            if (i%2==0) map1.addOverlay(marker[i]);
-//            else map2.addOverlay(marker[i]);
-            map1.addOverlay(marker[i])
+            map1.addOverlay(marker[i]);
+            map2.addOverlay(marker_right[i]);
         }
     }
 
